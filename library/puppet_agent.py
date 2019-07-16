@@ -2,13 +2,14 @@
 
 import subprocess
 from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.utils import Utils
 
 
 def puppet_command(params):
-    command = params['path'] + ' agent -t --color false'
+    command = Utils.find_puppet() + ' agent -t --color false'
 
     if params['noop']: command += ' --noop'
-    if params['environment'] != None: command += f" --environment {params['environment']}"
+    if params['environment'] is not None: command += f" --environment {params['environment']}"
 
     return command
 
@@ -19,7 +20,6 @@ def main():
             state=dict(type='str', default='run', choices=['run', 'stop']),
             environment=dict(type='str'),
             noop=dict(type='bool', default=False),
-            path=dict(type='path', default='/usr/local/bin/puppet')
         )
     )
 

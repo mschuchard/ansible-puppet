@@ -2,10 +2,11 @@
 
 import subprocess
 from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.utils import Utils
 
 
 def puppet_command(params):
-    command = params['path'] + ' apply --color false'
+    command = Utils.find_puppet() + ' apply --color false'
 
     if params['noop']: command += ' --noop'
 
@@ -17,7 +18,6 @@ def main():
         argument_spec=dict(
             manifest=dict(type='str', required=True),
             noop=dict(type='bool', default=False),
-            path=dict(type='path', default='/usr/local/bin/puppet')
         )
     )
 

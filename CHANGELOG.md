@@ -12,3 +12,5 @@ tests
 other commands
 
 man pages
+
+comments
