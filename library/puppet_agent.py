@@ -5,16 +5,21 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.utils import Utils
 
 
+# construct puppet command for module
 def puppet_command(params):
+    # establish base command
     command = Utils.find_puppet() + ' agent -t --color false'
 
+    # add optional arguments and flags
     if params['noop']: command += ' --noop'
     if params['environment'] is not None: command += f" --environment {params['environment']}"
 
     return command
 
 
+# main method
 def main():
+    # initialize ansible module
     module = AnsibleModule(
         argument_spec=dict(
             state=dict(type='str', default='run', choices=['run', 'stop']),
@@ -23,6 +28,7 @@ def main():
         )
     )
 
+    # execute puppet agent command
     try:
         output = subprocess.check_output(puppet_command(module.params), shell=True)
     except:

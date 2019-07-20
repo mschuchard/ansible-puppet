@@ -3,14 +3,8 @@ required, aliases
 
 doc and examples
 
-helper methods file
-
 deploy and subscribe puppet
 
 tests
 
 other commands
-
-man pages
-
-comments
