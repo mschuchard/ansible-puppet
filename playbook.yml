@@ -6,7 +6,12 @@
   gather_facts: false
 
   tasks:
-  - name: test puppet
+  - name: test puppet agent
     puppet_agent:
       state: run
+      noop: true
+
+  - name: test puppet apply
+    puppet_apply:
+      manifest: foo.pp
       noop: true
